@@ -6,6 +6,23 @@ import warningMessages from "./warning-messages";
 export default function EditBar() {
   const [eduParts, setEduParts] = useState([1]);
   const [expParts, setExpParts] = useState([1]);
+  const [infoParts, setInfoParts] = useState([1]);
+
+  function handleAddInfoParts() {
+    if (infoParts.length < 3) {
+      setInfoParts((prev) => [...prev, prev.length + 1]);
+    } else {
+      alert(warningMessages.tooManyInfo);
+    }
+  }
+
+  function handleRemoveInfoParts() {
+    if (infoParts.length > 1) {
+      setInfoParts((prev) => prev.slice(0, -1));
+    } else {
+      alert(warningMessages.tooFewInfo);
+    }
+  }
 
   function handleAddEduParts() {
     if (eduParts.length < 4) {
@@ -56,7 +73,13 @@ export default function EditBar() {
         <button onClick={handleAddExpParts}>Add Experience</button>
         <button onClick={handleRemoveExpParts}>Remove Experience</button>
       </div>
-      <MoreInformation />
+      <div id="more-info-container">
+        {infoParts.map((infoPart) => (
+          <MoreInformation index={infoPart} />
+        ))}
+        <button onClick={handleAddInfoParts}>Add Additional Information</button>
+        <button onClick={handleRemoveInfoParts}>Remove Previous</button>
+      </div>
     </>
   );
 }
@@ -64,6 +87,7 @@ export default function EditBar() {
 function GeneralInformation() {
   return (
     <>
+      <h2>General Information</h2>
       <InputField type={"text"} userGuidance={"Your Name:"}></InputField>
       <InputField type={"email"} userGuidance={"Your Email:"}></InputField>
       <InputField type={"tel"} userGuidance={"Your Telephone:"}></InputField>
@@ -138,10 +162,9 @@ function MoreInformation() {
     <>
       <h2>Additional Information</h2>
       <InputField type="text" userGuidance={"Title"} />
-      <InputField type="date" userGuidance={"Date (optional)"} />
       <FreeTypingArea
         type="text"
-        userGuidance={"Description"}
+        userGuidance={"Description | Skills | Languages"}
         rows={5}
         cols={33}
       />

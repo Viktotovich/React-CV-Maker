@@ -6,6 +6,9 @@ const warningMessages = {
   tooFewEdu: "Having atleast one educational field is mandatory",
   tooManyEdu:
     "Too many fields for education, consider keeping the most relevant ones. If you just wanted to include all the certifications, I would reccomend a cover page dedicated to that",
+  tooManyInfo:
+    "Consider reducing the amount of additional information, if you feel like it is very crucial - use a cover page.",
+  tooFewInfo: "Consider adding you skills in this section",
 };
 
 export default warningMessages;
