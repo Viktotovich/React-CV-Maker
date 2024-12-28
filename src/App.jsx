@@ -1,9 +1,13 @@
 import "./App.css";
+import EditBar from "./components/edit-bar";
 
 function App() {
   return (
     <>
-      <div>start</div>
+      <aside>
+        <EditBar></EditBar>
+      </aside>
+      <section>{/* The edited body */}</section>
     </>
   );
 }
