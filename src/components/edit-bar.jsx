@@ -1,15 +1,17 @@
 import { useState } from "react";
 import InputField from "./input-field";
 import FreeTypingArea from "./free-typing-area";
+import warningMessages from "./warning-messages";
 
 export default function EditBar() {
   const [eduParts, setEduParts] = useState([1]);
+  const [expParts, setExpParts] = useState([1]);
 
   function handleAddEduParts() {
     if (eduParts.length < 4) {
       setEduParts((prev) => [...prev, prev.length + 1]);
     } else {
-      alert("Too many fields for education");
+      alert(warningMessages.tooManyEdu);
     }
   }
 
@@ -17,22 +19,44 @@ export default function EditBar() {
     if (eduParts.length > 1) {
       setEduParts((prev) => prev.slice(0, -1));
     } else {
-      alert("Having atleast one educational field is mandatory");
+      alert(warningMessages.tooFewEdu);
+    }
+  }
+
+  function handleAddExpParts() {
+    if (expParts.length < 5) {
+      setExpParts((prev) => [...prev, prev.length + 1]);
+    } else {
+      alert(warningMessages.tooManyExp);
+    }
+  }
+
+  function handleRemoveExpParts() {
+    if (expParts.length > 1) {
+      setExpParts((prev) => prev.slice(0, -1));
+    } else {
+      alert(warningMessages.tooFewExp);
     }
   }
 
   return (
     <>
-      <GeneralInformation></GeneralInformation>
+      <GeneralInformation />
       <div id="education-container">
         {eduParts.map((eduPart) => (
-          <EducationalExperience index={eduPart}></EducationalExperience>
+          <EducationalExperience index={eduPart} />
         ))}
         <button onClick={handleAddEduParts}>Add More</button>
         <button onClick={handleRemoveEduParts}>Remove</button>
       </div>
-      <PracticalExperience></PracticalExperience>
-      <MoreInformation></MoreInformation>
+      <div id="experience-container">
+        {expParts.map((expPart) => (
+          <PracticalExperience index={expPart} />
+        ))}
+        <button onClick={handleAddExpParts}>Add Experience</button>
+        <button onClick={handleRemoveExpParts}>Remove Experience</button>
+      </div>
+      <MoreInformation />
     </>
   );
 }
@@ -63,15 +87,64 @@ function EducationalExperience({ index }) {
         userGuidance={"Education description"}
         rows={5}
         cols={33}
-      ></FreeTypingArea>
+      />
     </>
   );
 }
 
-function PracticalExperience() {
-  return <></>;
+function PracticalExperience({ index }) {
+  const [hasEndDate, setEndDate] = useState(false);
+
+  function handleEndDate() {
+    if (hasEndDate === false) {
+      setEndDate(true);
+    } else {
+      setEndDate(false);
+    }
+  }
+
+  return (
+    <>
+      <h2>Experience {index}</h2>
+      <InputField type="text" userGuidance={"Company Name"}></InputField>
+      <InputField type="text" userGuidance={"Position"}></InputField>
+      <InputField type="date" userGuidance={"Starting Date"}></InputField>
+      <EndDate handleEndDate={handleEndDate} hasEndDate={hasEndDate}></EndDate>
+      <FreeTypingArea
+        type="text"
+        userGuidance={"Experience description"}
+        rows={5}
+        cols={33}
+      />
+    </>
+  );
+}
+
+function EndDate({ handleEndDate, hasEndDate }) {
+  return (
+    <div className="end-date-container">
+      {hasEndDate ? (
+        <InputField type="date" userGuidance={"End Date"}></InputField>
+      ) : (
+        <p>Currently working here</p>
+      )}
+      <button onClick={handleEndDate}>Click to toggle</button>
+    </div>
+  );
 }
 
 function MoreInformation() {
-  return <></>;
+  return (
+    <>
+      <h2>Additional Information</h2>
+      <InputField type="text" userGuidance={"Title"} />
+      <InputField type="date" userGuidance={"Date (optional)"} />
+      <FreeTypingArea
+        type="text"
+        userGuidance={"Description"}
+        rows={5}
+        cols={33}
+      />
+    </>
+  );
 }

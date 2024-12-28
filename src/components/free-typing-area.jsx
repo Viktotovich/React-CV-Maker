@@ -4,7 +4,8 @@ export default function FreeTypingArea({ id, rows, cols, userGuidance }) {
       id={id}
       rows={rows}
       cols={cols}
-      placeholder={userGuidance}
+      placeholder={userGuidance + " (300 characters max)"}
+      maxLength={300}
     ></textarea>
   );
 }
