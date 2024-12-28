@@ -1,4 +1,6 @@
 import { useState } from "react";
+import InputField from "./input-field";
+import FreeTypingArea from "./free-typing-area";
 
 export default function EditBar() {
   const [eduParts, setEduParts] = useState([1]);
@@ -72,25 +74,4 @@ function PracticalExperience() {
 
 function MoreInformation() {
   return <></>;
-}
-
-function InputField({ type = "text", userGuidance }) {
-  return (
-    <label>
-      {" "}
-      {userGuidance}
-      <input type={type}></input>
-    </label>
-  );
-}
-
-function FreeTypingArea({ id, rows, cols, userGuidance }) {
-  return (
-    <textarea
-      id={id}
-      rows={rows}
-      cols={cols}
-      placeholder={userGuidance}
-    ></textarea>
-  );
 }
