@@ -2,6 +2,7 @@ import { useState } from "react";
 import InputField from "./input-field";
 import FreeTypingArea from "./free-typing-area";
 import warningMessages from "./warning-messages";
+import "../styles/edit-bar.css";
 
 export default function EditBar() {
   const [eduParts, setEduParts] = useState([1]);
