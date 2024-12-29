@@ -1,5 +1,6 @@
 import "./App.css";
 import EditBar from "./components/edit-bar";
+import CV from "./components/cv-page";
 
 function App() {
   return (
@@ -7,7 +8,9 @@ function App() {
       <aside>
         <EditBar></EditBar>
       </aside>
-      <section>{/* The edited body */}</section>
+      <section>
+        <CV></CV>
+      </section>
     </>
   );
 }
