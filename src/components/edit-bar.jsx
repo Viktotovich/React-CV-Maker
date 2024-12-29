@@ -3,8 +3,9 @@ import InputField from "./input-field";
 import FreeTypingArea from "./free-typing-area";
 import warningMessages from "./warning-messages";
 import "../styles/edit-bar.css";
+import { sampleData } from "./sample-data";
 
-export default function EditBar() {
+export default function EditBar({ handleGeneralInfo }) {
   const [eduParts, setEduParts] = useState([1]);
   const [expParts, setExpParts] = useState([1]);
   const [infoParts, setInfoParts] = useState([1]);
@@ -60,7 +61,7 @@ export default function EditBar() {
   return (
     <>
       <div id="general-information-container" className="editor-container">
-        <GeneralInformation />
+        <GeneralInformation handleGeneralInfo={handleGeneralInfo} />
       </div>
 
       <div id="education-container" className="editor-container">
@@ -90,11 +91,17 @@ export default function EditBar() {
   );
 }
 
-function GeneralInformation() {
+function GeneralInformation({ handleGeneralInfo }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   function handleCollapse() {
     isCollapsed ? setIsCollapsed(!isCollapsed) : setIsCollapsed(true);
+  }
+
+  function handleInput(labelPart, newData) {
+    let generalInfoClone = Object.create(sampleData);
+    //new object, change handleGeneralInfo
+    //FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCK
   }
 
   if (isCollapsed) {
