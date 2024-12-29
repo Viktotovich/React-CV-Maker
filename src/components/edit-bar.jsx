@@ -59,22 +59,24 @@ export default function EditBar() {
 
   return (
     <>
-      <GeneralInformation />
-      <div id="education-container">
+      <div id="general-information-container" className="editor-container">
+        <GeneralInformation />
+      </div>
+      <div id="education-container" className="editor-container">
         {eduParts.map((eduPart) => (
           <EducationalExperience index={eduPart} />
         ))}
         <button onClick={handleAddEduParts}>Add More</button>
         <button onClick={handleRemoveEduParts}>Remove</button>
       </div>
-      <div id="experience-container">
+      <div id="experience-container" className="editor-container">
         {expParts.map((expPart) => (
           <PracticalExperience index={expPart} />
         ))}
         <button onClick={handleAddExpParts}>Add Experience</button>
         <button onClick={handleRemoveExpParts}>Remove Experience</button>
       </div>
-      <div id="more-info-container">
+      <div id="more-info-container" className="editor-container">
         {infoParts.map((infoPart) => (
           <MoreInformation index={infoPart} />
         ))}

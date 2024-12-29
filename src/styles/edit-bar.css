@@ -1,0 +1,39 @@
+aside {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+h2 {
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.7rem;
+  margin-bottom: 0.8rem;
+}
+
+.editor-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-container label {
+  margin: 0.3rem 0;
+}
+
+label input {
+  margin-left: 0.3rem;
+}
+
+textarea {
+  margin: 0.7rem 0;
+}
+
+/* Edge case*/
+.end-date-container {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin-top: 0.3rem;
+}
