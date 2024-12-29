@@ -18,3 +18,12 @@ React is a pleasure to work with.
 However, this is half the battle - the second half (both
 literally and figuratively), begins with the actual
 CV content and making it editable
+
+30/12/2024: Stuck in an analysis paralysis - do I use one
+MEGA useState object for every single one of the inputs -
+or do I do 14/15/16 or however many input
+fields there are? Mega useState object sounds nice,
+but it seems like such a code stink.
+
+On the other side, creating a useState for each input item
+will clutter the code base

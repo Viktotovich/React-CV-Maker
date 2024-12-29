@@ -35,7 +35,7 @@ function CEdu() {
         </div>
         <div className="education-title">
           <h3>
-            Education title -<span>Education Facility</span>
+            Education title - <span>Education Facility</span>
           </h3>
         </div>
         <div className="education-description">
@@ -58,7 +58,7 @@ function CExperience() {
         </div>
         <div className="experience-title">
           <h3>
-            Experience title -<span>Experience Facility</span>
+            Experience title - <span>Experience Facility</span>
           </h3>
         </div>
         <div className="experience-description">

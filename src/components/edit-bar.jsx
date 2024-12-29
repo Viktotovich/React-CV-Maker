@@ -62,6 +62,7 @@ export default function EditBar() {
       <div id="general-information-container" className="editor-container">
         <GeneralInformation />
       </div>
+
       <div id="education-container" className="editor-container">
         {eduParts.map((eduPart) => (
           <EducationalExperience index={eduPart} />
@@ -69,6 +70,7 @@ export default function EditBar() {
         <button onClick={handleAddEduParts}>Add More</button>
         <button onClick={handleRemoveEduParts}>Remove</button>
       </div>
+
       <div id="experience-container" className="editor-container">
         {expParts.map((expPart) => (
           <PracticalExperience index={expPart} />
@@ -76,6 +78,7 @@ export default function EditBar() {
         <button onClick={handleAddExpParts}>Add Experience</button>
         <button onClick={handleRemoveExpParts}>Remove Experience</button>
       </div>
+
       <div id="more-info-container" className="editor-container">
         {infoParts.map((infoPart) => (
           <MoreInformation index={infoPart} />
@@ -88,17 +91,54 @@ export default function EditBar() {
 }
 
 function GeneralInformation() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  function handleCollapse() {
+    isCollapsed ? setIsCollapsed(!isCollapsed) : setIsCollapsed(true);
+  }
+
+  if (isCollapsed) {
+    return (
+      <>
+        <h2>General Information</h2>
+        <EditorButton
+          text={"Edit General Information"}
+          onClick={handleCollapse}
+        />
+      </>
+    );
+  }
+
   return (
     <>
       <h2>General Information</h2>
       <InputField type={"text"} userGuidance={"Your Name:"}></InputField>
       <InputField type={"email"} userGuidance={"Your Email:"}></InputField>
       <InputField type={"tel"} userGuidance={"Your Telephone:"}></InputField>
+      <EditorButton text={"Save Field"} onClick={handleCollapse} />
     </>
   );
 }
 
 function EducationalExperience({ index }) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  function handleCollapse() {
+    isCollapsed ? setIsCollapsed(!isCollapsed) : setIsCollapsed(true);
+  }
+
+  if (isCollapsed) {
+    return (
+      <>
+        <h2>Education {index}</h2>
+        <EditorButton
+          text={"Edit General Information"}
+          onClick={handleCollapse}
+        />
+      </>
+    );
+  }
+
   return (
     <>
       <h2>Education {index}</h2>
@@ -115,12 +155,14 @@ function EducationalExperience({ index }) {
         rows={5}
         cols={33}
       />
+      <EditorButton text={"Save Education"} onClick={handleCollapse} />
     </>
   );
 }
 
 function PracticalExperience({ index }) {
   const [hasEndDate, setEndDate] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   function handleEndDate() {
     if (hasEndDate === false) {
@@ -128,6 +170,22 @@ function PracticalExperience({ index }) {
     } else {
       setEndDate(false);
     }
+  }
+
+  function handleCollapse() {
+    isCollapsed ? setIsCollapsed(!isCollapsed) : setIsCollapsed(true);
+  }
+
+  if (isCollapsed) {
+    return (
+      <>
+        <h2>Experience {index}</h2>
+        <EditorButton
+          text={"Edit Experience Information"}
+          onClick={handleCollapse}
+        />
+      </>
+    );
   }
 
   return (
@@ -142,6 +200,10 @@ function PracticalExperience({ index }) {
         userGuidance={"Experience description"}
         rows={5}
         cols={33}
+      />
+      <EditorButton
+        text={"Save Experience Information"}
+        onClick={handleCollapse}
       />
     </>
   );
@@ -161,6 +223,24 @@ function EndDate({ handleEndDate, hasEndDate }) {
 }
 
 function MoreInformation() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  function handleCollapse() {
+    isCollapsed ? setIsCollapsed(!isCollapsed) : setIsCollapsed(true);
+  }
+
+  if (isCollapsed) {
+    return (
+      <>
+        <h2>Additional Information</h2>
+        <EditorButton
+          text={"Edit Additional Information"}
+          onClick={handleCollapse}
+        />
+      </>
+    );
+  }
+
   return (
     <>
       <h2>Additional Information</h2>
@@ -171,6 +251,14 @@ function MoreInformation() {
         rows={5}
         cols={33}
       />
+      <EditorButton
+        text={"Save Additional Information"}
+        onClick={handleCollapse}
+      />
     </>
   );
+}
+
+function EditorButton({ onClick, text }) {
+  return <button onClick={onClick}>{text}</button>;
 }
