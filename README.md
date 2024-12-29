@@ -1,8 +1,20 @@
-# React + Vite
+#Remarks
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+29/12/2024: I am absolutely floored at how easy this project is to handle.
+I came in today tired and sleepy, dreading the fact that I
+would need to do a lot of heavy lifting to separate the
+editBar and the main content. That, and the fact that I'd
+have to add in styles.
 
-Currently, two official plugins are available:
+It took me less than 15 minutes to get half of that work
+done. React makes it so simple it's insane.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Something that would have taken me ages to write out specific
+classes for containers, and finding them in the endless void
+of const labelContainer = document.createElement("div").
+
+React is a pleasure to work with.
+
+However, this is half the battle - the second half (both
+literally and figuratively), begins with the actual
+CV content and making it editable
