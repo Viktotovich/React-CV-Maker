@@ -118,7 +118,7 @@ function GeneralInformation({ handleGeneralInfo }) {
 
   return (
     <>
-      <h2>General Information</h2>
+      <h2>General Information </h2>
       <InputField type={"text"} userGuidance={"Your Name:"}></InputField>
       <InputField type={"email"} userGuidance={"Your Email:"}></InputField>
       <InputField type={"tel"} userGuidance={"Your Telephone:"}></InputField>

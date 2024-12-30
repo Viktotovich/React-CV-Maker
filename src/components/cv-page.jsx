@@ -1,3 +1,6 @@
+import EmailIcon from "../assets/email-icon";
+import TelephoneIcon from "../assets/telephone-icon";
+
 export default function CV() {
   return (
     <>
@@ -16,8 +19,12 @@ function CHeader() {
     <div className="cv-header-container">
       <p id="name">Name and all here</p>
       <div className="contact-info">
-        <p>Tel + SVG</p>
-        <p>Email + SVG</p>
+        <p>
+          Tel <TelephoneIcon />
+        </p>
+        <p>
+          Email <EmailIcon />
+        </p>
       </div>
     </div>
   );
