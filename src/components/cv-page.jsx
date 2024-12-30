@@ -1,12 +1,15 @@
 import EmailIcon from "../assets/email-icon";
 import TelephoneIcon from "../assets/telephone-icon";
 
-export default function CV({ generalInfo }) {
+export default function CV({ generalInfo, eduInfo }) {
   return (
     <>
       <CHeader generalInfo={generalInfo} />
       <div className="cv-body">
-        <CEdu />
+        <h2>Education</h2>
+        {eduInfo.map((eduField) => (
+          <CEdu eduField={eduField} />
+        ))}
         <CExperience />
         <CInfo />
       </div>
@@ -30,25 +33,21 @@ function CHeader({ generalInfo }) {
   );
 }
 
-function CEdu() {
+function CEdu({ eduField }) {
   return (
     <div className="cv-education-container">
-      <h2>Education + ID</h2>
-      <div className="education-breakdown">
-        <div className="education-date">
-          <p>
-            Start Date - <span>End Date</span>
-          </p>
-        </div>
-        <div className="education-title">
-          <h3>
-            Education title - <span>Education Facility</span>
-          </h3>
-        </div>
-        <div className="education-description">
-          Very long description, probably even a bullet list?
-        </div>
+      <div className="education-date">
+        <p>
+          {eduField.dateStarted} - <span>{eduField.dateFinished}</span>
+        </p>
       </div>
+      <div className="education-title">
+        <h3>
+          {eduField.subjectTitle} -{" "}
+          <span>{eduField.educationFacilityName}</span>
+        </h3>
+      </div>
+      <div className="education-description">{eduField.eduDescription}</div>
     </div>
   );
 }

@@ -4,10 +4,28 @@ import FreeTypingArea from "./free-typing-area";
 import warningMessages from "./warning-messages";
 import "../styles/edit-bar.css";
 
-export default function EditBar({ handleGeneralInfo, generalInfo }) {
+export default function EditBar({
+  handleGeneralInfo,
+  generalInfo,
+  handleEduInfo,
+  eduInfo,
+}) {
   const [eduParts, setEduParts] = useState([1]);
   const [expParts, setExpParts] = useState([1]);
   const [infoParts, setInfoParts] = useState([1]);
+
+  function addAnotherEdu() {
+    const fullCopy = eduInfo.slice(0, eduInfo.length);
+    const additionalLayer = eduInfo.slice(0, 1)[0];
+    fullCopy.push(additionalLayer);
+    handleEduInfo(fullCopy);
+  }
+
+  function removeEduField() {
+    const fullCopy = eduInfo.slice(0, eduInfo.length);
+    fullCopy.pop();
+    handleEduInfo(fullCopy);
+  }
 
   function handleAddInfoParts() {
     if (infoParts.length < 3) {
@@ -27,6 +45,7 @@ export default function EditBar({ handleGeneralInfo, generalInfo }) {
 
   function handleAddEduParts() {
     if (eduParts.length < 4) {
+      addAnotherEdu();
       setEduParts((prev) => [...prev, prev.length + 1]);
     } else {
       alert(warningMessages.tooManyEdu);
@@ -35,6 +54,7 @@ export default function EditBar({ handleGeneralInfo, generalInfo }) {
 
   function handleRemoveEduParts() {
     if (eduParts.length > 1) {
+      removeEduField();
       setEduParts((prev) => prev.slice(0, -1));
     } else {
       alert(warningMessages.tooFewEdu);
@@ -63,12 +83,17 @@ export default function EditBar({ handleGeneralInfo, generalInfo }) {
         <GeneralInformation
           handleGeneralInfo={handleGeneralInfo}
           generalInfo={generalInfo}
+          key={generalInfo.id}
         />
       </div>
 
       <div id="education-container" className="editor-container">
         {eduParts.map((eduPart) => (
-          <EducationalExperience index={eduPart} />
+          <EducationalExperience
+            index={eduPart}
+            handleEduInfo={handleEduInfo}
+            eduInfo={eduInfo}
+          />
         ))}
         <button onClick={handleAddEduParts}>Add More</button>
         <button onClick={handleRemoveEduParts}>Remove</button>
@@ -177,11 +202,69 @@ function GeneralInformation({ handleGeneralInfo, generalInfo }) {
   );
 }
 
-function EducationalExperience({ index }) {
+function EducationalExperience({ index, handleEduInfo, eduInfo }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [facility, setFacility] = useState(eduInfo[0].educationFacilityName);
+  const [subject, setSubject] = useState(eduInfo[0].subjectTitle);
+  const [startDate, setStartDate] = useState(eduInfo[0].dateStarted);
+  const [endDate, setEndDate] = useState(eduInfo[0].dateFinished);
+  const [eduDescription, setEDescription] = useState(eduInfo[0].eduDescription);
 
   function handleCollapse() {
     isCollapsed ? setIsCollapsed(!isCollapsed) : setIsCollapsed(true);
+  }
+
+  // ALL These event handlers ALSO change any additionaly added education fields
+  //TODO: find a way to make a copy without references
+  function handleFacilityChange(e) {
+    const updatedFacility = e.target.value;
+    setFacility(updatedFacility);
+
+    const fullCopy = eduInfo.slice(0, eduInfo.length);
+    fullCopy[index - 1].educationFacilityName = updatedFacility;
+
+    handleEduInfo(fullCopy);
+  }
+
+  function handleSubjectChange(e) {
+    const updatedSubject = e.target.value;
+    setSubject(updatedSubject);
+
+    const fullCopy = eduInfo.slice(0, eduInfo.length);
+    fullCopy[index - 1].subjectTitle = updatedSubject;
+
+    handleEduInfo(fullCopy);
+  }
+
+  function handleStartDateChange(e) {
+    const updatedSDate = e.target.value;
+    setStartDate(updatedSDate);
+
+    const fullCopy = eduInfo.slice(0, eduInfo.length);
+    fullCopy[index - 1].dateStarted = updatedSDate;
+
+    handleEduInfo(fullCopy);
+  }
+
+  function handleEndDateChange(e) {
+    const updatedEDate = e.target.value;
+    setEndDate(updatedEDate);
+
+    const fullCopy = eduInfo.slice(0, eduInfo.length);
+    fullCopy[index - 1].dateFinished = updatedEDate;
+
+    handleEduInfo(fullCopy);
+  }
+
+  function handleDescriptionChange(e) {
+    const updatedDescription = e.target.value;
+    setEDescription(updatedDescription);
+
+    const fullCopy = eduInfo.slice(0, eduInfo.length);
+    fullCopy[index - 1].eduDescription = updatedDescription;
+
+    handleEduInfo(fullCopy);
+    console.log(eduInfo);
   }
 
   if (isCollapsed) {
@@ -199,19 +282,44 @@ function EducationalExperience({ index }) {
   return (
     <>
       <h2>Education {index}</h2>
+
       <InputField
         type="text"
         userGuidance={"Education Facility Name"}
+        onChange={handleFacilityChange}
+        text={eduInfo[index - 1].educationFacilityName}
       ></InputField>
-      <InputField type="text" userGuidance={"Title of Subject"}></InputField>
-      <InputField type="date" userGuidance={"Date started"}></InputField>
-      <InputField type="date" userGuidance={"Date finished"}></InputField>
+
+      <InputField
+        type="text"
+        userGuidance={"Title of Subject"}
+        onChange={handleSubjectChange}
+        text={eduInfo[index - 1].subjectTitle}
+      ></InputField>
+
+      <InputField
+        type="date"
+        userGuidance={"Date started"}
+        onChange={handleStartDateChange}
+        text={eduInfo[index - 1].dateStarted}
+      ></InputField>
+
+      <InputField
+        type="date"
+        userGuidance={"Date finished"}
+        onChange={handleEndDateChange}
+        text={eduInfo[index - 1].dateFinished}
+      ></InputField>
+
       <FreeTypingArea
         type="text"
         userGuidance={"Education description"}
         rows={5}
         cols={33}
+        text={eduInfo[index - 1].eduDescription}
+        onChange={handleDescriptionChange}
       />
+
       <EditorButton text={"Save Education"} onClick={handleCollapse} />
     </>
   );
