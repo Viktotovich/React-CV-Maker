@@ -13,9 +13,9 @@ const sampleData = {
       dateFinished: "04/04/2008",
       eduDescription:
         "Conducted field studies on existing enterprises, creating feasibility studies, and generating ideas that have helped reduce churn rates by 7%, and increase longetivity of average staff. Additionally, helped increase revenue by 12%. Ended the grade with 3.5 GPA",
+      id: 1,
     },
   ],
-  //Very very EXTREMELY tempting to add an impure method that pushes an arr clone to educationInformation
   experienceInformation: [
     {
       companyName: "EK Airlines",
