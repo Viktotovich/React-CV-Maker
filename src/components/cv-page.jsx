@@ -15,7 +15,6 @@ export default function CV({ generalInfo }) {
 }
 
 function CHeader({ generalInfo }) {
-  console.log(generalInfo);
   return (
     <div className="cv-header-container">
       <p id="name"> {generalInfo.name}</p>

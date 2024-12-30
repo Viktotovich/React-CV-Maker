@@ -102,11 +102,15 @@ function GeneralInformation({ handleGeneralInfo, generalInfo }) {
   }
 
   function handleNameChange(e) {
-    setUName(e.target.value);
-    let genCopy = Object.create(generalInfo);
-    genCopy.name = uName;
-    genCopy.email = generalInfo.email;
-    genCopy.tel = generalInfo.tel;
+    //Fuck me this actually works
+    const updatedName = e.target.value;
+    setUName(updatedName);
+
+    const genCopy = {
+      ...generalInfo,
+      name: updatedName,
+    };
+
     handleGeneralInfo(genCopy);
   }
 
@@ -129,6 +133,7 @@ function GeneralInformation({ handleGeneralInfo, generalInfo }) {
         type={"text"}
         userGuidance={"Your Name:"}
         onChange={handleNameChange}
+        text={generalInfo.name}
       ></InputField>
       <InputField type={"email"} userGuidance={"Your Email:"}></InputField>
       <InputField type={"tel"} userGuidance={"Your Telephone:"}></InputField>
