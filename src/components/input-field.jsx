@@ -1,9 +1,13 @@
-export default function InputField({ type = "text", userGuidance }) {
+export default function InputField({
+  type = "text",
+  userGuidance,
+  onChange = "",
+}) {
   return (
     <label>
       {" "}
       {userGuidance}
-      <input type={type}></input>
+      <input type={type} onChange={onChange}></input>
     </label>
   );
 }

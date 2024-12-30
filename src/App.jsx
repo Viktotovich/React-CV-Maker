@@ -14,10 +14,13 @@ function App() {
   return (
     <>
       <aside>
-        <EditBar handleGeneralInfo={handleGeneralInfo}></EditBar>
+        <EditBar
+          handleGeneralInfo={handleGeneralInfo}
+          generalInfo={generalInfo}
+        ></EditBar>
       </aside>
       <section>
-        <CV></CV>
+        <CV generalInfo={generalInfo}></CV>
       </section>
     </>
   );

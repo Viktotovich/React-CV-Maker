@@ -3,9 +3,8 @@ import InputField from "./input-field";
 import FreeTypingArea from "./free-typing-area";
 import warningMessages from "./warning-messages";
 import "../styles/edit-bar.css";
-import { sampleData } from "./sample-data";
 
-export default function EditBar({ handleGeneralInfo }) {
+export default function EditBar({ handleGeneralInfo, generalInfo }) {
   const [eduParts, setEduParts] = useState([1]);
   const [expParts, setExpParts] = useState([1]);
   const [infoParts, setInfoParts] = useState([1]);
@@ -61,7 +60,10 @@ export default function EditBar({ handleGeneralInfo }) {
   return (
     <>
       <div id="general-information-container" className="editor-container">
-        <GeneralInformation handleGeneralInfo={handleGeneralInfo} />
+        <GeneralInformation
+          handleGeneralInfo={handleGeneralInfo}
+          generalInfo={generalInfo}
+        />
       </div>
 
       <div id="education-container" className="editor-container">
@@ -91,17 +93,21 @@ export default function EditBar({ handleGeneralInfo }) {
   );
 }
 
-function GeneralInformation({ handleGeneralInfo }) {
+function GeneralInformation({ handleGeneralInfo, generalInfo }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [uName, setUName] = useState("John Mc Tavish");
 
   function handleCollapse() {
     isCollapsed ? setIsCollapsed(!isCollapsed) : setIsCollapsed(true);
   }
 
-  function handleInput(labelPart, newData) {
-    let generalInfoClone = Object.create(sampleData);
-    //new object, change handleGeneralInfo
-    //FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCK
+  function handleNameChange(e) {
+    setUName(e.target.value);
+    let genCopy = Object.create(generalInfo);
+    genCopy.name = uName;
+    genCopy.email = generalInfo.email;
+    genCopy.tel = generalInfo.tel;
+    handleGeneralInfo(genCopy);
   }
 
   if (isCollapsed) {
@@ -119,7 +125,11 @@ function GeneralInformation({ handleGeneralInfo }) {
   return (
     <>
       <h2>General Information </h2>
-      <InputField type={"text"} userGuidance={"Your Name:"}></InputField>
+      <InputField
+        type={"text"}
+        userGuidance={"Your Name:"}
+        onChange={handleNameChange}
+      ></InputField>
       <InputField type={"email"} userGuidance={"Your Email:"}></InputField>
       <InputField type={"tel"} userGuidance={"Your Telephone:"}></InputField>
       <EditorButton text={"Save Field"} onClick={handleCollapse} />

@@ -1,10 +1,10 @@
 import EmailIcon from "../assets/email-icon";
 import TelephoneIcon from "../assets/telephone-icon";
 
-export default function CV() {
+export default function CV({ generalInfo }) {
   return (
     <>
-      <CHeader />
+      <CHeader generalInfo={generalInfo} />
       <div className="cv-body">
         <CEdu />
         <CExperience />
@@ -14,10 +14,11 @@ export default function CV() {
   );
 }
 
-function CHeader() {
+function CHeader({ generalInfo }) {
+  console.log(generalInfo);
   return (
     <div className="cv-header-container">
-      <p id="name">Name and all here</p>
+      <p id="name"> {generalInfo.name}</p>
       <div className="contact-info">
         <p>
           Tel <TelephoneIcon />
