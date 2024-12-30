@@ -20,10 +20,10 @@ function CHeader({ generalInfo }) {
       <p id="name"> {generalInfo.name}</p>
       <div className="contact-info">
         <p>
-          Tel <TelephoneIcon />
+          <TelephoneIcon /> {generalInfo.tel}
         </p>
         <p>
-          Email <EmailIcon />
+          <EmailIcon /> {generalInfo.email}
         </p>
       </div>
     </div>

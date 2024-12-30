@@ -96,19 +96,44 @@ export default function EditBar({ handleGeneralInfo, generalInfo }) {
 function GeneralInformation({ handleGeneralInfo, generalInfo }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [uName, setUName] = useState("John Mc Tavish");
+  const [uEmail, setUEmail] = useState("test@aol.com");
+  const [uTel, setUTel] = useState("+971 55 123 1234");
 
   function handleCollapse() {
     isCollapsed ? setIsCollapsed(!isCollapsed) : setIsCollapsed(true);
   }
 
   function handleNameChange(e) {
-    //Fuck me this actually works
     const updatedName = e.target.value;
     setUName(updatedName);
 
     const genCopy = {
       ...generalInfo,
       name: updatedName,
+    };
+
+    handleGeneralInfo(genCopy);
+  }
+
+  function handleEmailChange(e) {
+    const updatedEmail = e.target.value;
+    setUEmail(updatedEmail);
+
+    const genCopy = {
+      ...generalInfo,
+      email: updatedEmail,
+    };
+
+    handleGeneralInfo(genCopy);
+  }
+
+  function handleTelChange(e) {
+    const updatedTel = e.target.value;
+    setUTel(updatedTel);
+
+    const genCopy = {
+      ...generalInfo,
+      tel: updatedTel,
     };
 
     handleGeneralInfo(genCopy);
@@ -134,9 +159,19 @@ function GeneralInformation({ handleGeneralInfo, generalInfo }) {
         userGuidance={"Your Name:"}
         onChange={handleNameChange}
         text={generalInfo.name}
-      ></InputField>
-      <InputField type={"email"} userGuidance={"Your Email:"}></InputField>
-      <InputField type={"tel"} userGuidance={"Your Telephone:"}></InputField>
+      />
+      <InputField
+        type={"email"}
+        userGuidance={"Your Email:"}
+        onChange={handleEmailChange}
+        text={generalInfo.email}
+      />
+      <InputField
+        type={"tel"}
+        userGuidance={"Your Telephone:"}
+        onChange={handleTelChange}
+        text={generalInfo.tel}
+      />
       <EditorButton text={"Save Field"} onClick={handleCollapse} />
     </>
   );
