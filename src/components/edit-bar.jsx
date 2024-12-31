@@ -123,7 +123,7 @@ export default function EditBar({
           <PracticalExperience
             index={expPart}
             key={expInfo[expPart - 1].id}
-            handleExpInfo={handleEduInfo}
+            handleExpInfo={handleExpInfo}
             expInfo={expInfo}
           />
         ))}
@@ -286,7 +286,6 @@ function EducationalExperience({ index, handleEduInfo, eduInfo }) {
     fullCopy[index - 1].eduDescription = updatedDescription;
 
     handleEduInfo(fullCopy);
-    console.log(eduInfo);
   }
 
   if (isCollapsed) {

@@ -2,6 +2,7 @@ import EmailIcon from "../assets/email-icon";
 import TelephoneIcon from "../assets/telephone-icon";
 
 export default function CV({ generalInfo, eduInfo }) {
+  console.log(eduInfo);
   return (
     <>
       <CHeader generalInfo={generalInfo} />

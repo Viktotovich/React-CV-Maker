@@ -24,9 +24,6 @@ function App() {
 
   function handleExpInfo(newExpInfo) {
     setExpInfo(newExpInfo);
-    console.log(eduInfo);
-    console.log("u");
-    console.log(expInfo);
   }
 
   return (
