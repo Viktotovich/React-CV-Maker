@@ -3,6 +3,7 @@ import InputField from "./input-field";
 import FreeTypingArea from "./free-typing-area";
 import warningMessages from "./warning-messages";
 import "../styles/edit-bar.css";
+import { pureObjects } from "./create-pure-objects";
 
 export default function EditBar({
   handleGeneralInfo,
@@ -16,7 +17,7 @@ export default function EditBar({
 
   function addAnotherEdu() {
     const fullCopy = eduInfo.slice(0, eduInfo.length);
-    const additionalLayer = eduInfo.slice(0, 1)[0];
+    const additionalLayer = new pureObjects.CreateEduField();
     fullCopy.push(additionalLayer);
     handleEduInfo(fullCopy);
   }

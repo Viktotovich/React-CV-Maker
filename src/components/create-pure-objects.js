@@ -1,12 +1,13 @@
 const pureObjects = {
   CreateEduField: class {
-    constructor(id) {
-      this.educationFacilityName = null;
-      this.subjectTitle = null;
-      this.dateStarted = null;
-      this.dateFinished = null;
-      this.eduDescription = null;
-      this.id = id;
+    constructor() {
+      this.educationFacilityName = "Education Facility Name";
+      this.subjectTitle = "Subject - Title";
+      this.dateStarted = "Date Started";
+      this.dateFinished = "Date Finished";
+      this.eduDescription = "Description";
     }
   },
 };
+
+export { pureObjects };
