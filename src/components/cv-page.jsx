@@ -8,7 +8,7 @@ export default function CV({ generalInfo, eduInfo }) {
       <div className="cv-body">
         <h2>Education</h2>
         {eduInfo.map((eduField) => (
-          <CEdu eduField={eduField} />
+          <CEdu eduField={eduField} /*Add a key here*/ />
         ))}
         <CExperience />
         <CInfo />

@@ -10,6 +10,8 @@ export default function EditBar({
   generalInfo,
   handleEduInfo,
   eduInfo,
+  handleExpInfo,
+  expInfo,
 }) {
   const [eduParts, setEduParts] = useState([1]);
   const [expParts, setExpParts] = useState([1]);
@@ -26,6 +28,19 @@ export default function EditBar({
     const fullCopy = eduInfo.slice(0, eduInfo.length);
     fullCopy.pop();
     handleEduInfo(fullCopy);
+  }
+
+  function addAnotherExp() {
+    const fullCopy = expInfo.slice(0, expInfo.length);
+    const additionalLayer = new pureObjects.CreateExpField();
+    fullCopy.push(additionalLayer);
+    handleExpInfo(fullCopy);
+  }
+
+  function removeExpField() {
+    const fullCopy = expInfo.slice(0, expInfo.length);
+    fullCopy.pop();
+    handleExpInfo(fullCopy);
   }
 
   function handleAddInfoParts() {
@@ -64,6 +79,7 @@ export default function EditBar({
 
   function handleAddExpParts() {
     if (expParts.length < 5) {
+      addAnotherExp();
       setExpParts((prev) => [...prev, prev.length + 1]);
     } else {
       alert(warningMessages.tooManyExp);
@@ -72,6 +88,7 @@ export default function EditBar({
 
   function handleRemoveExpParts() {
     if (expParts.length > 1) {
+      removeExpField();
       setExpParts((prev) => prev.slice(0, -1));
     } else {
       alert(warningMessages.tooFewExp);
@@ -91,6 +108,7 @@ export default function EditBar({
       <div id="education-container" className="editor-container">
         {eduParts.map((eduPart) => (
           <EducationalExperience
+            key={eduInfo[eduPart - 1].id}
             index={eduPart}
             handleEduInfo={handleEduInfo}
             eduInfo={eduInfo}
@@ -102,7 +120,12 @@ export default function EditBar({
 
       <div id="experience-container" className="editor-container">
         {expParts.map((expPart) => (
-          <PracticalExperience index={expPart} />
+          <PracticalExperience
+            index={expPart}
+            key={expInfo[expPart - 1].id}
+            handleExpInfo={handleEduInfo}
+            expInfo={expInfo}
+          />
         ))}
         <button onClick={handleAddExpParts}>Add Experience</button>
         <button onClick={handleRemoveExpParts}>Remove Experience</button>
@@ -215,8 +238,6 @@ function EducationalExperience({ index, handleEduInfo, eduInfo }) {
     isCollapsed ? setIsCollapsed(!isCollapsed) : setIsCollapsed(true);
   }
 
-  // ALL These event handlers ALSO change any additionaly added education fields
-  //TODO: find a way to make a copy without references
   function handleFacilityChange(e) {
     const updatedFacility = e.target.value;
     setFacility(updatedFacility);
@@ -326,9 +347,14 @@ function EducationalExperience({ index, handleEduInfo, eduInfo }) {
   );
 }
 
-function PracticalExperience({ index }) {
+function PracticalExperience({ index, expInfo, handleExpInfo }) {
   const [hasEndDate, setEndDate] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [companyName, setCompanyName] = useState(expInfo[0].companyName);
+  const [position, setPosition] = useState(expInfo[0].position);
+  const [sDate, setSDate] = useState(expInfo[0].startDate);
+  const [eDate, setEdate] = useState(expInfo[0].endDate);
+  const [uDesc, setUDesc] = useState(expInfo[0].experienceDescription);
 
   function handleEndDate() {
     if (hasEndDate === false) {
@@ -340,6 +366,16 @@ function PracticalExperience({ index }) {
 
   function handleCollapse() {
     isCollapsed ? setIsCollapsed(!isCollapsed) : setIsCollapsed(true);
+  }
+
+  function handleCNameChange(e) {
+    const updatedCName = e.target.value;
+    setCompanyName(updatedCName);
+
+    const fullCopy = expInfo.slice(0, expInfo.length);
+    fullCopy[index - 1].companyName = updatedCName;
+
+    handleExpInfo(fullCopy);
   }
 
   if (isCollapsed) {
@@ -357,7 +393,12 @@ function PracticalExperience({ index }) {
   return (
     <>
       <h2>Experience {index}</h2>
-      <InputField type="text" userGuidance={"Company Name"}></InputField>
+      <InputField
+        type="text"
+        userGuidance={"Company Name"}
+        onChange={handleCNameChange}
+        text={expInfo[index - 1].companyName}
+      ></InputField>
       <InputField type="text" userGuidance={"Position"}></InputField>
       <InputField type="date" userGuidance={"Starting Date"}></InputField>
       <EndDate handleEndDate={handleEndDate} hasEndDate={hasEndDate}></EndDate>

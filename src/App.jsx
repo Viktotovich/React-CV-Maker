@@ -2,11 +2,17 @@ import "./App.css";
 import EditBar from "./components/edit-bar";
 import CV from "./components/cv-page";
 import { useState } from "react";
-import { sampleData } from "./components/sample-data";
+import {
+  generalInformation,
+  educationInformation,
+  experienceInformation,
+  additionalInformation,
+} from "./components/sample-data";
 
 function App() {
-  const [generalInfo, setGeneralInfo] = useState(sampleData.generalInformation);
-  const [eduInfo, setEduInfo] = useState(sampleData.educationInformation);
+  const [generalInfo, setGeneralInfo] = useState(generalInformation);
+  const [eduInfo, setEduInfo] = useState(educationInformation);
+  const [expInfo, setExpInfo] = useState(experienceInformation);
 
   function handleGeneralInfo(newGeneralInfo) {
     setGeneralInfo(newGeneralInfo);
@@ -14,6 +20,13 @@ function App() {
 
   function handleEduInfo(newEduInfo) {
     setEduInfo(newEduInfo);
+  }
+
+  function handleExpInfo(newExpInfo) {
+    setExpInfo(newExpInfo);
+    console.log(eduInfo);
+    console.log("u");
+    console.log(expInfo);
   }
 
   return (
@@ -24,6 +37,8 @@ function App() {
           generalInfo={generalInfo}
           handleEduInfo={handleEduInfo}
           eduInfo={eduInfo}
+          handleExpInfo={handleExpInfo}
+          expInfo={expInfo}
         ></EditBar>
       </aside>
       <section>
