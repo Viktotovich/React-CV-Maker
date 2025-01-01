@@ -352,7 +352,7 @@ function PracticalExperience({ index, expInfo, handleExpInfo }) {
   const [companyName, setCompanyName] = useState(expInfo[0].companyName);
   const [position, setPosition] = useState(expInfo[0].position);
   const [sDate, setSDate] = useState(expInfo[0].startDate);
-  const [eDate, setEdate] = useState(expInfo[0].endDate);
+  const [eDate, setEDate] = useState(expInfo[0].endDate);
   const [uDesc, setUDesc] = useState(expInfo[0].experienceDescription);
 
   function handleEndDate() {
@@ -377,6 +377,46 @@ function PracticalExperience({ index, expInfo, handleExpInfo }) {
     handleExpInfo(fullCopy);
   }
 
+  function handlePositionChange(e) {
+    const updatedPName = e.target.value;
+    setPosition(updatedPName);
+
+    const fullCopy = expInfo.slice(0, expInfo.length);
+    fullCopy[index - 1].position = updatedPName;
+
+    handleExpInfo(fullCopy);
+  }
+
+  function handleSDateChange(e) {
+    const updatedSDate = e.target.value;
+    setSDate(updatedSDate);
+
+    const fullCopy = expInfo.slice(0, expInfo.length);
+    fullCopy[index - 1].startDate = updatedSDate;
+
+    handleExpInfo(fullCopy);
+  }
+
+  function handleEDateChange(e) {
+    const updatedEDate = e.target.value;
+    setEDate(updatedEDate);
+
+    const fullCopy = expInfo.slice(0, expInfo.length);
+    fullCopy[index - 1].endDate = updatedEDate;
+
+    handleExpInfo(fullCopy);
+  }
+
+  function handleUDescChange(e) {
+    const updatedUDesc = e.target.value;
+    setUDesc(updatedUDesc);
+
+    const fullCopy = expInfo.slice(0, expInfo.length);
+    fullCopy[index - 1].experienceDescription = updatedUDesc;
+
+    handleExpInfo(fullCopy);
+  }
+
   if (isCollapsed) {
     return (
       <>
@@ -397,15 +437,31 @@ function PracticalExperience({ index, expInfo, handleExpInfo }) {
         userGuidance={"Company Name"}
         onChange={handleCNameChange}
         text={expInfo[index - 1].companyName}
-      ></InputField>
-      <InputField type="text" userGuidance={"Position"}></InputField>
-      <InputField type="date" userGuidance={"Starting Date"}></InputField>
-      <EndDate handleEndDate={handleEndDate} hasEndDate={hasEndDate}></EndDate>
+      />
+      <InputField
+        type="text"
+        userGuidance={"Position"}
+        text={expInfo[index - 1].position}
+        onChange={handlePositionChange}
+      />
+      <InputField
+        type="date"
+        userGuidance={"Starting Date"}
+        text={expInfo[index - 1].startDate}
+        onChange={handleSDateChange}
+      />
+      <EndDate
+        handleEndDate={handleEndDate}
+        hasEndDate={hasEndDate}
+        onChange={handleEDateChange}
+      />
       <FreeTypingArea
         type="text"
         userGuidance={"Experience description"}
         rows={5}
         cols={33}
+        text={expInfo[index - 1].experienceDescription}
+        onChange={handleUDescChange}
       />
       <EditorButton
         text={"Save Experience Information"}
@@ -415,7 +471,7 @@ function PracticalExperience({ index, expInfo, handleExpInfo }) {
   );
 }
 
-function EndDate({ handleEndDate, hasEndDate }) {
+function EndDate({ handleEndDate, hasEndDate, onChange }) {
   return (
     <div className="end-date-container">
       {hasEndDate ? (

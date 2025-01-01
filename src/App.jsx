@@ -39,7 +39,7 @@ function App() {
         ></EditBar>
       </aside>
       <section>
-        <CV generalInfo={generalInfo} eduInfo={eduInfo}></CV>
+        <CV generalInfo={generalInfo} eduInfo={eduInfo} expInfo={expInfo}></CV>
       </section>
     </>
   );

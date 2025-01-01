@@ -1,17 +1,19 @@
 import EmailIcon from "../assets/email-icon";
 import TelephoneIcon from "../assets/telephone-icon";
 
-export default function CV({ generalInfo, eduInfo }) {
-  console.log(eduInfo);
+export default function CV({ generalInfo, eduInfo, expInfo }) {
   return (
     <>
       <CHeader generalInfo={generalInfo} />
       <div className="cv-body">
         <h2>Education</h2>
         {eduInfo.map((eduField) => (
-          <CEdu eduField={eduField} /*Add a key here*/ />
+          <CEdu eduField={eduField} key={eduField.id} />
         ))}
-        <CExperience />
+        <h2>Experience</h2>
+        {expInfo.map((expField) => (
+          <CExperience expField={expField} key={expField.id} />
+        ))}
         <CInfo />
       </div>
     </>
@@ -53,24 +55,21 @@ function CEdu({ eduField }) {
   );
 }
 
-function CExperience() {
+function CExperience({ expField }) {
   return (
     <div className="cv-experience-container">
-      <h2>Experience + ID</h2>
-      <div className="experience-breakdown">
-        <div className="experience-date">
-          <p>
-            Start Date - <span>End Date</span>
-          </p>
-        </div>
-        <div className="experience-title">
-          <h3>
-            Experience title - <span>Experience Facility</span>
-          </h3>
-        </div>
-        <div className="experience-description">
-          Very long description, probably even a bullet list?
-        </div>
+      <div className="experience-date">
+        <p>
+          {expField.startDate} - <span>{expField.endDate}</span>
+        </p>
+      </div>
+      <div className="experience-title">
+        <h3>
+          {expField.position} - <span>{expField.companyName}</span>
+        </h3>
+      </div>
+      <div className="experience-description">
+        {expField.experienceDescription}
       </div>
     </div>
   );
