@@ -13,6 +13,7 @@ function App() {
   const [generalInfo, setGeneralInfo] = useState(generalInformation);
   const [eduInfo, setEduInfo] = useState(educationInformation);
   const [expInfo, setExpInfo] = useState(experienceInformation);
+  const [aInfo, setAInfo] = useState(additionalInformation);
 
   function handleGeneralInfo(newGeneralInfo) {
     setGeneralInfo(newGeneralInfo);
@@ -26,6 +27,10 @@ function App() {
     setExpInfo(newExpInfo);
   }
 
+  function handleAInfo(newAInfo) {
+    setAInfo(newAInfo);
+  }
+
   return (
     <>
       <aside>
@@ -36,10 +41,17 @@ function App() {
           eduInfo={eduInfo}
           handleExpInfo={handleExpInfo}
           expInfo={expInfo}
+          handleAInfo={handleAInfo}
+          aInfo={aInfo}
         ></EditBar>
       </aside>
       <section>
-        <CV generalInfo={generalInfo} eduInfo={eduInfo} expInfo={expInfo}></CV>
+        <CV
+          generalInfo={generalInfo}
+          eduInfo={eduInfo}
+          expInfo={expInfo}
+          aInfo={aInfo}
+        ></CV>
       </section>
     </>
   );

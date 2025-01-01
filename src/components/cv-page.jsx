@@ -1,7 +1,7 @@
 import EmailIcon from "../assets/email-icon";
 import TelephoneIcon from "../assets/telephone-icon";
 
-export default function CV({ generalInfo, eduInfo, expInfo }) {
+export default function CV({ generalInfo, eduInfo, expInfo, aInfo }) {
   return (
     <>
       <CHeader generalInfo={generalInfo} />
@@ -14,7 +14,10 @@ export default function CV({ generalInfo, eduInfo, expInfo }) {
         {expInfo.map((expField) => (
           <CExperience expField={expField} key={expField.id} />
         ))}
-        <CInfo />
+        <h2>Additional Information</h2>
+        {aInfo.map((aField) => (
+          <CInfo aField={aField} key={aField.id} />
+        ))}
       </div>
     </>
   );
@@ -50,7 +53,7 @@ function CEdu({ eduField }) {
           <span>{eduField.educationFacilityName}</span>
         </h3>
       </div>
-      <div className="education-description">{eduField.eduDescription}</div>
+      <p className="education-description">{eduField.eduDescription}</p>
     </div>
   );
 }
@@ -68,18 +71,16 @@ function CExperience({ expField }) {
           {expField.position} - <span>{expField.companyName}</span>
         </h3>
       </div>
-      <div className="experience-description">
-        {expField.experienceDescription}
-      </div>
+      <p className="experience-description">{expField.experienceDescription}</p>
     </div>
   );
 }
 
-function CInfo() {
+function CInfo({ aField }) {
   return (
     <div className="additional-information-container">
-      <h2>Additional Information</h2>
-      <div className="additional-information">Very long description</div>
+      <h3>{aField.title}</h3>
+      <p className="additional-information">{aField.description}</p>
     </div>
   );
 }

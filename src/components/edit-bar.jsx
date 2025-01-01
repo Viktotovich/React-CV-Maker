@@ -12,6 +12,8 @@ export default function EditBar({
   eduInfo,
   handleExpInfo,
   expInfo,
+  handleAInfo,
+  aInfo,
 }) {
   const [eduParts, setEduParts] = useState([1]);
   const [expParts, setExpParts] = useState([1]);
@@ -133,7 +135,12 @@ export default function EditBar({
 
       <div id="more-info-container" className="editor-container">
         {infoParts.map((infoPart) => (
-          <MoreInformation index={infoPart} />
+          <MoreInformation
+            index={infoPart}
+            key={aInfo[infoPart - 1].id}
+            handleAInfo={handleAInfo}
+            aInfo={aInfo}
+          />
         ))}
         <button onClick={handleAddInfoParts}>Add Additional Information</button>
         <button onClick={handleRemoveInfoParts}>Remove Previous</button>
@@ -360,6 +367,12 @@ function PracticalExperience({ index, expInfo, handleExpInfo }) {
       setEndDate(true);
     } else {
       setEndDate(false);
+      setEDate("Present");
+
+      const fullCopy = expInfo.slice(0, expInfo.length);
+      fullCopy[index - 1].endDate = "Present";
+
+      handleExpInfo(fullCopy);
     }
   }
 
@@ -475,7 +488,11 @@ function EndDate({ handleEndDate, hasEndDate, onChange }) {
   return (
     <div className="end-date-container">
       {hasEndDate ? (
-        <InputField type="date" userGuidance={"End Date"}></InputField>
+        <InputField
+          type="date"
+          userGuidance={"End Date"}
+          onChange={onChange}
+        ></InputField>
       ) : (
         <p>Currently working here</p>
       )}
@@ -484,11 +501,33 @@ function EndDate({ handleEndDate, hasEndDate, onChange }) {
   );
 }
 
-function MoreInformation() {
+function MoreInformation({ index, handleAInfo, aInfo }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [title, setTitle] = useState(aInfo[0].title);
+  const [desc, setDesc] = useState(aInfo[0].description);
 
   function handleCollapse() {
     isCollapsed ? setIsCollapsed(!isCollapsed) : setIsCollapsed(true);
+  }
+
+  function handleTitle(e) {
+    const updatedT = e.target.value;
+    setTitle(updatedT);
+
+    const fullCopy = aInfo.slice(0, aInfo.length);
+    fullCopy[index - 1].title = updatedT;
+
+    handleAInfo(fullCopy);
+  }
+
+  function handleDesc(e) {
+    const updatedD = e.target.value;
+    setDesc(updatedD);
+
+    const fullCopy = aInfo.slice(0, aInfo.length);
+    fullCopy[index - 1].description = updatedD;
+
+    handleAInfo(fullCopy);
   }
 
   if (isCollapsed) {
@@ -506,12 +545,19 @@ function MoreInformation() {
   return (
     <>
       <h2>Additional Information</h2>
-      <InputField type="text" userGuidance={"Title"} />
+      <InputField
+        type="text"
+        userGuidance={"Title"}
+        text={aInfo[index - 1].title}
+        onChange={handleTitle}
+      />
       <FreeTypingArea
         type="text"
         userGuidance={"Description | Skills | Languages"}
         rows={5}
         cols={33}
+        text={aInfo[index - 1].description}
+        onChange={handleDesc}
       />
       <EditorButton
         text={"Save Additional Information"}
