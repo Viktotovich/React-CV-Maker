@@ -27,3 +27,13 @@ but it seems like such a code stink.
 
 On the other side, creating a useState for each input item
 will clutter the code base
+
+02/01/2025: I have tried to export to PDF through react to pdf
+package, and then from hugoxcl atleast to an image - neither
+worked. One had something to do with render being depriciated
+and it kept crashing the page - the other absolutely did
+not work at all.
+
+TODO: explore potential solution to fix - for now,
+the project is practically finished. I will implement
+this on our main site with the pdf functionality
