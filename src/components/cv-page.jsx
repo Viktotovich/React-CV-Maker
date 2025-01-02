@@ -1,5 +1,6 @@
 import EmailIcon from "../assets/email-icon";
 import TelephoneIcon from "../assets/telephone-icon";
+import "../styles/cv-page.css";
 
 export default function CV({ generalInfo, eduInfo, expInfo, aInfo }) {
   return (
@@ -42,16 +43,14 @@ function CHeader({ generalInfo }) {
 function CEdu({ eduField }) {
   return (
     <div className="cv-education-container">
-      <div className="education-date">
-        <p>
-          {eduField.dateStarted} - <span>{eduField.dateFinished}</span>
-        </p>
-      </div>
-      <div className="education-title">
+      <div className="date-and-title">
         <h3>
           {eduField.subjectTitle} -{" "}
           <span>{eduField.educationFacilityName}</span>
         </h3>
+        <p>
+          {eduField.dateStarted} - <span>{eduField.dateFinished}</span>
+        </p>
       </div>
       <p className="education-description">{eduField.eduDescription}</p>
     </div>
@@ -61,15 +60,13 @@ function CEdu({ eduField }) {
 function CExperience({ expField }) {
   return (
     <div className="cv-experience-container">
-      <div className="experience-date">
-        <p>
-          {expField.startDate} - <span>{expField.endDate}</span>
-        </p>
-      </div>
-      <div className="experience-title">
+      <div className="date-and-title">
         <h3>
           {expField.position} - <span>{expField.companyName}</span>
         </h3>
+        <p>
+          {expField.startDate} - <span>{expField.endDate}</span>
+        </p>
       </div>
       <p className="experience-description">{expField.experienceDescription}</p>
     </div>

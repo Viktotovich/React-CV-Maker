@@ -1,0 +1,51 @@
+section {
+  margin: 0 5rem;
+  --default-color: rgba(129, 212, 212, 0.251);
+  --default-font: "Times New Roman", Times, serif;
+}
+
+#name {
+  font-size: 2.5rem;
+  margin: 0.4rem 0;
+}
+
+.cv-header-container {
+  font-family: var(--default-font);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, var(--default-color), white);
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+}
+
+svg {
+  min-width: 20px;
+  max-width: 20px;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+}
+
+.contact-info p:nth-child(2) {
+  margin-left: 2rem;
+}
+
+section h2 {
+  background-color: var(--default-color);
+}
+
+section h2:nth-child(1) {
+  margin-top: 0;
+}
+
+.date-and-title {
+  display: flex;
+  justify-content: space-between;
+}
